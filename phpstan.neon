@@ -5,6 +5,7 @@ parameters:
         - tests
     excludePaths:
         - 'src/Kernel.php'
+        - 'tests/bootstrap.php'
     symfony:
         container_xml_path: var/cache/dev/App_KernelDevDebugContainer.xml
         console_application_loader: console-loader.php
