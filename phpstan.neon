@@ -5,19 +5,6 @@ parameters:
         - tests
     excludePaths:
         - 'src/Kernel.php'
-    ignoreErrors:
-        -
-            message: '#Method App\\Tests\\.*::.*\(\) is unused\.$#'
-            paths:
-                - tests/*
-        - '#Call to an undefined method .*Interface\:\:.*\(\)\.#'
-        - '#Call to an undefined property .*Interface\:\:.*\(\)\.#'
-        -
-            message: '#Call to undefined method .*#'
-            paths:
-                - tests/Support/Helper/Acceptance.php
-                - tests/Support/Helper/Functional.php
-                - tests/Support/Helper/Unit.php
     symfony:
         container_xml_path: var/cache/dev/App_KernelDevDebugContainer.xml
         console_application_loader: console-loader.php
