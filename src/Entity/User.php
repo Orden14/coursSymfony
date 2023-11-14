@@ -16,8 +16,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?int $id = null;
 
     #[ORM\Column(length: 180, unique: true)]
-    private ?string $username = null;
+    private string $username;
 
+    /** @var array<int, string> $roles */
     #[ORM\Column]
     private array $roles = [];
 
@@ -25,7 +26,19 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @var string The hashed password
      */
     #[ORM\Column]
-    private ?string $password = null;
+    private string $password;
+
+    #[ORM\Column(length: 255)]
+    private string $firstName;
+
+    #[ORM\Column(length: 255)]
+    private string $lastName;
+
+    #[ORM\Column(length: 255)]
+    private string $email;
+
+    #[ORM\Column(length: 255)]
+    private string $birthDate;
 
     public function getId(): ?int
     {
@@ -69,6 +82,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return array_unique($roles);
     }
 
+    /** @param array<int, string> $roles */
     public function setRoles(array $roles): static
     {
         $this->roles = $roles;
@@ -108,5 +122,53 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    public function getFirstName(): ?string
+    {
+        return $this->firstName;
+    }
+
+    public function setFirstName(string $firstName): static
+    {
+        $this->firstName = $firstName;
+
+        return $this;
+    }
+
+    public function getLastName(): ?string
+    {
+        return $this->lastName;
+    }
+
+    public function setLastName(string $lastName): static
+    {
+        $this->lastName = $lastName;
+
+        return $this;
+    }
+
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(string $email): static
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    public function getBirthDate(): ?string
+    {
+        return $this->birthDate;
+    }
+
+    public function setBirthDate(string $birthDate): static
+    {
+        $this->birthDate = $birthDate;
+
+        return $this;
     }
 }
