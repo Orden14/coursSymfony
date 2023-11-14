@@ -17,8 +17,8 @@
     "license": "UNLICENSED",
     "private": true,
     "scripts": {
-        "server start": "symfony server:start --port=8001",
-        "encore server": "encore dev-server",
+        "server-start": "symfony server:start --port=8001",
+        "encore-server": "encore dev-server",
         "watch": "encore dev --watch",
         "build": "encore production --progress",
         "dependencies": "composer install && yarn install && yarn build",
