@@ -28,7 +28,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @var string The hashed password
      */
     #[ORM\Column]
-    private string $password;
+    private string $password = 'password';
 
     #[ORM\Column(length: 255)]
     private string $firstName;
@@ -90,6 +90,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setRoles(array $roles): static
     {
         $this->roles = $roles;
+
+        return $this;
+    }
+
+    public function addRole(string $role): static
+    {
+        $this->roles[] = $role;
 
         return $this;
     }
