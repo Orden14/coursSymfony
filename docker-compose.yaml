@@ -3,7 +3,7 @@ services:
     db:
         image: yobasystems/alpine-mariadb:10.4.17
         container_name: db_courssymfony
-        restart: always
+        restart: no
         volumes:
             - db-data:/var/lib/mysql
         environment:
@@ -16,7 +16,7 @@ services:
     phpmyadmin:
         image: phpmyadmin
         container_name: phpmyadmin_outilsCH
-        restart: always
+        restart: no
         depends_on:
             - db
         ports:
