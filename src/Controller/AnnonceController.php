@@ -32,7 +32,11 @@ class AnnonceController extends AbstractController
         );
 
         if (empty($annonces)) {
-            $this->addFlash('error', 'Aucune annonce trouvée, vous avez été edigiré vers la page d\'accueil.');
+            $this->addFlash(
+                'error',
+                'Vous n\'avez aucune annonce, nous vous avons digiré vers la page d\'accueil.'
+            );
+
             return $this->redirectToRoute('app_index');
         }
 
