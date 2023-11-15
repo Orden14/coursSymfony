@@ -42,7 +42,7 @@ class AnnonceFixtures extends Fixture implements DependentFixtureInterface
     {
         return $this->annonceFactory->createAnnonce(
             $owner,
-            $faker->title(),
+            $faker->colorName(),
             $faker->text(),
             $faker->numberBetween(9,999),
             'faker.jpg',
