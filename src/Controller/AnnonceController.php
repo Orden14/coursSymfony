@@ -14,6 +14,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
+#[Route('/annonce')]
 class AnnonceController extends AbstractController
 {
     public function __construct(
@@ -22,15 +23,14 @@ class AnnonceController extends AbstractController
         private readonly EntityManagerInterface $entityManager
     ) {}
 
-    #[Route('/', name: 'app_index')]
-    public function index(): Response
+    #[Route('/annonces/{id}', name: 'app_annonces')]
+    public function showAnnonces(Request $request): Response
     {
         $annonces = $this->entityManager->getRepository(Annonce::class)->findBy(
-            [],
-            ['postDate' => 'DESC'],
-            50
+            ['owner' => $request->get('id')],
+            ['postDate' => 'DESC']
         );
-        
+
         return $this->render('annonce/index.html.twig', [
             'annonces' => $annonces,
         ]);

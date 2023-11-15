@@ -4,8 +4,10 @@
         </a>
         <ul class="dropdown-menu" aria-labelledby="navbarDropdownPlannings">
             <li><a class="dropdown-item" href="{{ path('app_index') }}">Toutes les annonces</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="{{ path('app_index') }}">Voitures</a></li>
+            {% if is_granted('ROLE_USER') %}
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="{{ path('app_annonces', {'id': app.user.id}) }}">Mes annonces</a></li>
+            {% endif %}
         </ul>
     </li>
     
