@@ -26,8 +26,12 @@
         </div>
         {% if is_granted('ROLE_ADMIN') or app.user == annonce.owner %}
             <div class="cmargintop">
-                <a class="btn btn-primary mt-auto" href="{{ path('annonce_edit', {'id': annonce.id}) }}">Modifier</a>
-                <a class="btn btn-danger mt-auto" href="{{ path('annonce_delete', {'id': annonce.id}) }}">Supprimer</a>
+                <a class="btn btn-primary mt-auto cmarginbottom" href="{{ path('annonce_edit', {'id': annonce.id}) }}">Modifier</a>
+                <form id="delete{{ annonce.id }}" method="post" action="{{ path('annonce_delete', {'id': annonce.id}) }}" data-controller="confirm">
+                    <a type="button" class="btn btn-danger mt-auto" id="{{ annonce.id }}" data-action="confirm#confirmDeletion" title="Attention, la suppression est définitive" data-bs-toggle="tooltip">
+                        Supprimer
+                    </a>
+                </form>
             </div>
         {% endif %}
     </div>
