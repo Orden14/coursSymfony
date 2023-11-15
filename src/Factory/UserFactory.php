@@ -16,9 +16,8 @@ class UserFactory
         string $firstName,
         string $lastName,
         string $password,
-        string $role,
         string $email,
-        string $birthDate
+        string $role = 'ROLE_USER',
     ): User
     {
         $user = new User();
@@ -29,7 +28,6 @@ class UserFactory
             ->setPassword($this->passwordHasher->hashPassword($user, $password))
             ->addRole($role)
             ->setEmail($email)
-            ->setBirthDate($birthDate)
         ;
 
         return $user;

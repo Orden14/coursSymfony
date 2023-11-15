@@ -40,7 +40,6 @@ class UserFixtures extends Fixture
             'admin',
             'ROLE_ADMIN',
             $faker->email(),
-            $faker->date()
         );
     }
 
@@ -51,9 +50,7 @@ class UserFixtures extends Fixture
             $faker->firstName(),
             $faker->lastName(),
             'technicien',
-            'ROLE_USER',
             $faker->email(),
-            $faker->date()
         );
     }
 
@@ -64,9 +61,7 @@ class UserFixtures extends Fixture
             $faker->firstName(),
             $faker->lastName(),
             $faker->password(),
-            'ROLE_USER',
             $faker->email(),
-            $faker->date()
         );
     }
   }
