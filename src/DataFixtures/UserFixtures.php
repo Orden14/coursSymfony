@@ -20,18 +20,18 @@ class UserFixtures extends Fixture
     {
         $faker = Factory::create('fr_FR');
 
-        $manager->persist($this->createAdminUser($faker));
+        $manager->persist($this->generateAdminUser($faker));
 
-        $manager->persist($this->createTechnicienUser($faker));
+        $manager->persist($this->generateTechnicienUser($faker));
 
         for ($i = 0; $i < 10; $i++) {
-            $manager->persist($this->createUser($faker));
+            $manager->persist($this->generateUser($faker));
         }
 
         $manager->flush();
     }
 
-    private function createAdminUser(Generator $faker): User
+    private function generateAdminUser(Generator $faker): User
     {
         return $this->userFactory->createUser(
             'admin',
@@ -43,7 +43,7 @@ class UserFixtures extends Fixture
         );
     }
 
-    private function createTechnicienUser(Generator $faker): User
+    private function generateTechnicienUser(Generator $faker): User
     {
         return $this->userFactory->createUser(
             'technicien',
@@ -54,7 +54,7 @@ class UserFixtures extends Fixture
         );
     }
 
-    private function createUser(Generator $faker): User
+    private function generateUser(Generator $faker): User
     {
         return $this->userFactory->createUser(
             $faker->userName(),

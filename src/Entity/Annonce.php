@@ -2,9 +2,10 @@
 
 namespace App\Entity;
 
-use App\Repository\AnnonceRepository;
+use DateTimeInterface;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\AnnonceRepository;
 
 #[ORM\Entity(repositoryClass: AnnonceRepository::class)]
 class Annonce
@@ -15,24 +16,30 @@ class Annonce
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $title = null;
+    private string $title;
 
     #[ORM\ManyToOne(inversedBy: 'annonces')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?User $owner = null;
+    private User $owner;
 
     #[ORM\Column(length: 255)]
-    private ?string $description = null;
+    private string $description;
 
-    #[ORM\Column(type: Types::JSON, nullable: true)]
-    private ?array $images = null;
+    #[ORM\Column(length: 255)]
+    private string $image;
+
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    private DateTimeInterface $postDate;
+
+    #[ORM\Column]
+    private int $price;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getTitle(): ?string
+    public function getTitle(): string
     {
         return $this->title;
     }
@@ -44,19 +51,19 @@ class Annonce
         return $this;
     }
 
-    public function getOwner(): ?User
+    public function getOwner(): User
     {
         return $this->owner;
     }
 
-    public function setOwner(?User $owner): static
+    public function setOwner(User $owner): static
     {
         $this->owner = $owner;
 
         return $this;
     }
 
-    public function getDescription(): ?string
+    public function getDescription(): string
     {
         return $this->description;
     }
@@ -68,14 +75,38 @@ class Annonce
         return $this;
     }
 
-    public function getImages(): ?array
+    public function getImage(): string
     {
-        return $this->images;
+        return $this->image;
     }
 
-    public function setImages(?array $images): static
+    public function setImage(string $image): static
     {
-        $this->images = $images;
+        $this->image = $image;
+
+        return $this;
+    }
+
+    public function getPostDate(): DateTimeInterface
+    {
+        return $this->postDate;
+    }
+
+    public function setPostDate(DateTimeInterface $postDate): static
+    {
+        $this->postDate = $postDate;
+
+        return $this;
+    }
+
+    public function getPrice(): int
+    {
+        return $this->price;
+    }
+
+    public function setPrice(int $price): static
+    {
+        $this->price = $price;
 
         return $this;
     }
