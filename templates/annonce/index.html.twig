@@ -5,7 +5,8 @@
 {% block body %}
 <section class="py-5">
     <div class="container px-4 px-lg-5 mt-5">
-        <a class="btn btn-primary mx-1 cmarginbottom" href="{{ path('app_index') }}">Créer une annonce</i></a>
+        <a class="btn btn-primary mx-1 cmarginbottom" href="{{ path('annonce_new') }}">Créer une annonce</i></a>
+
         <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
             {% for annonce in annonces %}
                 <div class="col mb-5">
@@ -21,7 +22,7 @@
                             <div class="text-center">
                                 <a class="btn btn-outline-dark mt-auto" href="#">Détails</a>
                                 {% if is_granted('ROLE_ADMIN') %}
-                                    <a class="btn btn-danger mt-auto" href="{{ path('app_annonce_delete', {'id': annonce.id}) }}">Supprimer</a>
+                                    <a class="btn btn-danger mt-auto" href="{{ path('annonce_delete', {'id': annonce.id}) }}">Supprimer</a>
                                 {% endif %}
                             </div>
                         </div>

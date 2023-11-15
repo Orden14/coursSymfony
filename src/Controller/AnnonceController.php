@@ -2,9 +2,14 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
+use DateTimeImmutable;
 use App\Entity\Annonce;
+use App\Form\NewAnnonceFormType;
+use App\Service\AnnonceService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Security;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -12,6 +17,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class AnnonceController extends AbstractController
 {
     public function __construct(
+        private readonly Security $security,
+        private readonly AnnonceService $annonceService,
         private readonly EntityManagerInterface $entityManager
     ) {}
 
@@ -29,28 +36,59 @@ class AnnonceController extends AbstractController
         ]);
     }
 
-    // #[Route('/new', name: 'app_annonce_new')]
-    // public function create(): Response
-    // {
+    #[Route('/new', name: 'annonce_new')]
+    public function create(Request $request): Response
+    {
+        /** @var User $user */
+        $user = $this->security->getUser();
 
-    // }
+        $annonce = new Annonce();
+        $form = $this->createForm(NewAnnonceFormType::class, $annonce);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $annonce->setOwner($user)
+                ->setPostDate(new DateTimeImmutable())
+            ;
+
+            $image = $form->get('image')->getData();
+
+            if ($image) {
+                $this->annonceService->uploadImage($annonce, $image);
+            }
+
+            $this->entityManager->persist($annonce);
+            $this->entityManager->flush();
+
+            return $this->redirectToRoute('app_index');
+        }
+
+        return $this->render('annonce/create.html.twig', [
+            'newAnnonceForm' => $form->createView(),
+        ]);
+    }
 
     // #[Route('/edit/{id}', name: 'app_annonce_edit')]
     // public function edit(Request $request): Response
     // {
     // }
 
-    #[Route('/delete/{id}', name: 'app_annonce_delete')]
+    #[Route('/delete/{id}', name: 'annonce_delete')]
     public function delete(Request $request): Response
     {
-        $annonce = $this->entityManager->getRepository(Annonce::class)->find((int) $request->get('id'));
+        $annonce = $this->entityManager
+            ->getRepository(Annonce::class)
+            ->find((int) $request->get('id'))
+        ;
+
+        $this->annonceService->deleteImage($annonce);
         $this->entityManager->remove($annonce);
         $this->entityManager->flush();
 
         return $this->redirectToRoute('app_index');
     }
 
-    // #[Route('/view/{id}', name: 'app_annonce_view')]
+    // #[Route('/view/{id}', name: 'annonce_view')]
     // public function view(Request $request): Response
     // {
 
