@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 #[Route('/annonce')]
@@ -23,7 +24,8 @@ class AnnonceController extends AbstractController
         private readonly EntityManagerInterface $entityManager
     ) {}
 
-    #[Route('/annonces/{id}', name: 'app_annonces')]
+    #[Route('/list/{id}', name: 'app_annonces')]
+    #[IsGranted('ROLE_USER')]
     public function showAnnonces(Request $request): Response
     {
         $annonces = $this->entityManager->getRepository(Annonce::class)->findBy(
@@ -46,6 +48,7 @@ class AnnonceController extends AbstractController
     }
 
     #[Route('/new', name: 'annonce_new')]
+    #[IsGranted('ROLE_USER')]
     public function create(Request $request): Response
     {
         /** @var User $user */
@@ -81,6 +84,7 @@ class AnnonceController extends AbstractController
     }
 
     #[Route('/edit/{id}', name: 'annonce_edit')]
+    #[IsGranted('ROLE_USER')]
     public function edit(Request $request): Response
     {
         $annonce = $this->entityManager
@@ -111,6 +115,7 @@ class AnnonceController extends AbstractController
     }
 
     #[Route('/delete/{id}', name: 'annonce_delete')]
+    #[IsGranted('ROLE_USER')]
     public function delete(Request $request): Response
     {
         $annonce = $this->entityManager
