@@ -8,7 +8,7 @@ B3 développement web & applications
 
 ## Lancer le projet
 Pour lancer le projet, se placer dans la root directory du projet puis :
-- docker-compose up (dockerise une base de données)
+- docker-compose up (dockerise une base de données pour le projet)
 - yarn run dependencies (ou : composer install && yarn install && yarn build)
 - yarn run truncate-database
 - yarn run server-start
