@@ -88,9 +88,16 @@ class AnnonceController extends AbstractController
         return $this->redirectToRoute('app_index');
     }
 
-    // #[Route('/view/{id}', name: 'annonce_view')]
-    // public function view(Request $request): Response
-    // {
+    #[Route('/show/{id}', name: 'annonce_show')]
+    public function show(Request $request): Response
+    {
+        $annonce = $this->entityManager
+            ->getRepository(Annonce::class)
+            ->find((int) $request->get('id'))
+        ;
 
-    // }
+        return $this->render('annonce/show.html.twig', [
+            'annonce' => $annonce,
+        ]);
+    }
 }
