@@ -19,8 +19,7 @@ class Annonce
     private string $title;
 
     #[ORM\ManyToOne(inversedBy: 'annonces')]
-    #[ORM\JoinColumn(nullable: false)]
-    private User $owner;
+    private ?User $owner;
 
     #[ORM\Column(length: 255)]
     private string $description;
@@ -51,12 +50,12 @@ class Annonce
         return $this;
     }
 
-    public function getOwner(): User
+    public function getOwner(): ?User
     {
         return $this->owner;
     }
 
-    public function setOwner(User $owner): static
+    public function setOwner(?User $owner): static
     {
         $this->owner = $owner;
 

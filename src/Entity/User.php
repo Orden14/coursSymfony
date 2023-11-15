@@ -6,6 +6,7 @@ use App\Repository\UserRepository;
 use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -44,6 +45,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255)]
     private string $email;
 
+    /**
+     * @var Collection<int, Annonce> $annonces
+     */
     #[ORM\OneToMany(mappedBy: 'owner', targetEntity: Annonce::class, orphanRemoval: true)]
     private Collection $annonces;
 

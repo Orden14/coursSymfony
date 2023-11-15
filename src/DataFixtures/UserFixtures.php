@@ -39,7 +39,7 @@ class UserFixtures extends Fixture
             $faker->lastName(),
             'admin',
             $faker->email(),
-            'ROLE_ADMINf',
+            'ROLE_ADMIN',
         );
     }
 

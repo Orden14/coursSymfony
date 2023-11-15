@@ -26,7 +26,7 @@
         </div>
         {% if is_granted('ROLE_ADMIN') or app.user == annonce.owner %}
             <div class="cmargintop">
-                <a class="btn btn-primary mt-auto" href="#">Modifier</a>
+                <a class="btn btn-primary mt-auto" href="{{ path('annonce_edit', {'id': annonce.id}) }}">Modifier</a>
                 <a class="btn btn-danger mt-auto" href="{{ path('annonce_delete', {'id': annonce.id}) }}">Supprimer</a>
             </div>
         {% endif %}

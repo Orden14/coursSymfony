@@ -11,7 +11,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 
-class NewAnnonceFormType extends AbstractType
+class AnnonceFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -27,6 +27,7 @@ class NewAnnonceFormType extends AbstractType
             ])
             ->add('image', FileType::class, [
                 'mapped' => false,
+                'required' => false,
                 'attr' => [
                     'placeholder' => 'Choisir un fichier',
                 ],
