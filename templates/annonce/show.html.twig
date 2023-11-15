@@ -9,7 +9,7 @@
         <div class="row gx-4 gx-lg-5 align-items-center">
             <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" src="{{ asset('images/' ~ annonce.image) }}" alt="..." /></div>
             <div class="col-md-6">
-                <div class="small mb-1">Annonce</div>
+                <div class="small mb-1">Propriéataire : {{annonce.owner.firstName }}  {{ annonce.owner.lastName }}</div>
                 <h1 class="display-5 fw-bolder">{{ annonce.title }}</h1>
                 <div class="fs-5 mb-5">
                     <span>{{ annonce.price }} €</span>
@@ -24,7 +24,7 @@
                 </div>
             </div>
         </div>
-        {% if is_granted('ROLE_ADMIN') %}
+        {% if is_granted('ROLE_ADMIN') or app.user == annonce.owner %}
             <div class="cmargintop">
                 <a class="btn btn-primary mt-auto" href="#">Modifier</a>
                 <a class="btn btn-danger mt-auto" href="{{ path('annonce_delete', {'id': annonce.id}) }}">Supprimer</a>
@@ -35,3 +35,4 @@
 
 
 {% endblock %}
+ 

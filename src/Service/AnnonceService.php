@@ -28,7 +28,9 @@ class AnnonceService
     public function deleteImage(Annonce $annonce): void
     {
         $imageDir = $this->param->get('image_directory');
-
-        unlink($imageDir . '/' . $annonce->getImage());
+        
+        if($annonce->getImage() !== 'faker.jpg') {
+            unlink($imageDir . '/' . $annonce->getImage());
+        }
     }
 }
