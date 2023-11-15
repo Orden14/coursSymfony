@@ -1,0 +1,24 @@
+{% set theme = app.request.server.get('APP_THEME') %}
+<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #2c3e50;">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{{ path('app_index') }}">Accueil</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                {% include 'components/navbar/links/_produits.html.twig' %}
+            </ul>
+        </div>
+        {% if app.user %}
+            <a class="btn btn-primary mx-1" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Mon compte" href="{{ path('app_index') }}">
+                <i class="fas fa-user" aria-hidden="true"></i>
+            </a>
+            <a class="btn btn-danger mx-1 my-sm-0" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Déconnexion" href="{{ path('app_logout') }}">
+                <i class="fas fa-sign-out-alt" aria-hidden="true"></i>
+            </a>
+        {% else %}
+            <a class="btn btn-primary mx-1" href="{{ path('app_login') }}">Connexion <i class="fas fa-sign-in" aria-hidden="true"></i></a>
+        {% endif %}
+    </div>
+</nav>
