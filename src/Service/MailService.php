@@ -15,7 +15,7 @@ class MailService
     public function sendRegistrationEmail(User $user): void
     {
         $email= (new Email())
-            ->from('schoolproject@noreply.com')
+            ->from('bienvenue@coincoin.fr')
             ->to($user->getEmail())
             ->subject('Bienvenue sur notre site !')
             ->text('Bonjour ' . $user->getUserIdentifier() . ', merci de vous être inscrit sur notre site !')
