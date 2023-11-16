@@ -13,12 +13,12 @@ services:
         networks:
             - dev
     maildev:
-        image: djfarrelly/maildev
+        image: maildev/maildev
         container_name: maildev_courssymfony
         restart: no
         ports:
-            - '1080:80'
-            - '1025:25'
+            - '1080:1080'
+            - '1025:1025'
         networks:
             - dev
 
