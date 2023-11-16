@@ -18,23 +18,21 @@
                 <p class="lead">{{ annonce.description }}</p>
                 <div class="d-flex">
                     <input class="form-control text-center me-3" id="inputQuantity" type="num" value="1" style="max-width: 3rem" />
-                    <button class="btn btn-outline-dark flex-shrink-0" type="button">
+                    <button class="btn btn-outline-dark flex-shrink-0 me-3" type="button">
                         <i class="bi-cart-fill me-1"></i>
                         Acheter
                     </button>
+                    {% if is_granted('ROLE_ADMIN') or app.user == annonce.owner %}
+                            <a type="button" class="btn btn-warning flex-shrink-0 me-3" href="{{ path('annonce_edit', {'id': annonce.id}) }}"><i class="fas fa-pen"></i></a>
+                            <form id="delete{{ annonce.id }}" method="post" action="{{ path('annonce_delete', {'id': annonce.id}) }}" data-controller="confirm">
+                                <a type="button" class="btn btn-danger flex-shrink-0" id="{{ annonce.id }}" data-action="confirm#confirmDeletion" title="Attention, la suppression est définitive" data-bs-toggle="tooltip">
+                                    <i class="fas fa-trash"></i>
+                                </a>
+                            </form>
+                    {% endif %}
                 </div>
             </div>
         </div>
-        {% if is_granted('ROLE_ADMIN') or app.user == annonce.owner %}
-            <div class="cmargintop">
-                <a class="btn btn-primary mt-auto cmarginbottom" href="{{ path('annonce_edit', {'id': annonce.id}) }}">Modifier</a>
-                <form id="delete{{ annonce.id }}" method="post" action="{{ path('annonce_delete', {'id': annonce.id}) }}" data-controller="confirm">
-                    <a type="button" class="btn btn-danger mt-auto" id="{{ annonce.id }}" data-action="confirm#confirmDeletion" title="Attention, la suppression est définitive" data-bs-toggle="tooltip">
-                        Supprimer
-                    </a>
-                </form>
-            </div>
-        {% endif %}
     </div>
 </section>
 
