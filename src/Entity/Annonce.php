@@ -34,8 +34,7 @@ class Annonce
     private int $price;
 
     #[ORM\ManyToOne(inversedBy: 'annonces')]
-    #[ORM\JoinColumn(nullable: false)]
-    private Categorie $categorie;
+    private ?Categorie $categorie = null;
 
     public function getId(): ?int
     {

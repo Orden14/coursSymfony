@@ -12,20 +12,29 @@ use Symfony\Component\Validator\Constraints\Positive;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class AnnonceFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+
+        $categorie = null;
+        if ($options['data']->getCategorie()) {
+            $categorie = $options['data']->getCategorie();
+        }
+
         $builder
             ->add('title')
             ->add('categorie', EntityType::class, [
                 'placeholder' => 'Choisissez une catégorie...',
                 'class' => Categorie::class,
                 'choice_label' => 'name',
-                'data' => $options['data']->getCategorie(),
+                'data' => $categorie,
             ])
-            ->add('description')
+            ->add('description',TextareaType::class, [
+                'attr' => ['rows' => 4],
+            ])
             ->add('price', IntegerType::class, [
                 'constraints' => [
                     new Positive([

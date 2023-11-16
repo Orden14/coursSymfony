@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nous contacter{% endblock %}
+
+{% block body %}
+    <div class="container mt-5">
+        <h1>Nous contacter</h1>
+
+        {{ form_errors(contactForm) }}
+
+        {{ form_start(contactForm, {'attr': {'class': 'form-group'}}) }}
+            <div class="form-group">
+                {{ form_row(contactForm.email, {'attr': {'class': 'form-control'}}) }}
+            </div>
+            <div class="form-group">
+                {{ form_row(contactForm.subject, {'attr': {'class': 'form-control'}}) }}
+            </div>
+            <div class="form-group">
+                {{ form_row(contactForm.body, {'attr': {'class': 'form-control'}}) }}
+            </div>
+            <button type="submit" class="btn btn-primary cmargintop">Envoyer</button>
+        {{ form_end(contactForm) }}
+    </div>   
+{% endblock %}

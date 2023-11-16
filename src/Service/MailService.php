@@ -23,4 +23,16 @@ class MailService
 
         $this->mailer->send($email);
     }
+
+    public function sendEmail(string $email, string $subject, string $body): void
+    {
+        $email = (new Email())
+            ->from($email)
+            ->to('contact@coincoin.fr')
+            ->subject('Demande de contact : ' . $subject)
+            ->text($body)
+        ;
+
+        $this->mailer->send($email);
+    }
 }
