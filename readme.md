@@ -13,7 +13,7 @@ Pour lancer le projet, se placer dans la root directory du projet puis :
 - yarn run server-start  
 
 Le projet sera accessible sur http://localhost:8001  
-Maildev sera accesibble sur http://localhost:1080/
+Maildev sera accessible sur http://localhost:1080/
 
 ## Maildev
 Maildev est un outil permettant de recevoir les emails dans un environnement de développement afin de tester nos features  
