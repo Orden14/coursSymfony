@@ -33,6 +33,10 @@ class Annonce
     #[ORM\Column]
     private int $price;
 
+    #[ORM\ManyToOne(inversedBy: 'annonces')]
+    #[ORM\JoinColumn(nullable: false)]
+    private Categorie $categorie;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -106,6 +110,18 @@ class Annonce
     public function setPrice(int $price): static
     {
         $this->price = $price;
+
+        return $this;
+    }
+
+    public function getCategorie(): ?Categorie
+    {
+        return $this->categorie;
+    }
+
+    public function setCategorie(?Categorie $categorie): static
+    {
+        $this->categorie = $categorie;
 
         return $this;
     }

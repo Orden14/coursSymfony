@@ -6,6 +6,7 @@ use Faker\Factory;
 use Faker\Generator;
 use App\Entity\User;
 use App\Entity\Annonce;
+use App\Entity\Categorie;
 use App\Factory\AnnonceFactory;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\ORM\EntityManagerInterface;
@@ -23,6 +24,7 @@ class AnnonceFixtures extends Fixture implements DependentFixtureInterface
     public function load(ObjectManager $manager): void
     {
         $faker = Factory::create('fr_FR');
+        $categorieRepository = $this->entityManager->getRepository(Categorie::class);
 
         $technicien = $this->entityManager
             ->getRepository(User::class)
@@ -31,19 +33,32 @@ class AnnonceFixtures extends Fixture implements DependentFixtureInterface
             ])
         ;
 
+        $categorie = $categorieRepository->findOneBy([
+            'name' => 'Voitures'
+        ]);
+
         for ($i = 0; $i < 20; $i++) {
-            $manager->persist($this->generateAnnonce($faker, $technicien));
+            $manager->persist($this->generateAnnonce($faker, $technicien, $categorie));
+        }
+
+        $categorie = $categorieRepository->findOneBy([
+            'name' => 'Ordinateurs'
+        ]);
+
+        for ($i = 0; $i < 20; $i++) {
+            $manager->persist($this->generateAnnonce($faker, $technicien, $categorie));
         }
 
         $manager->flush();
     }
 
-    private function generateAnnonce(Generator $faker, User $owner): Annonce
+    private function generateAnnonce(Generator $faker, User $owner, Categorie $categorie): Annonce
     {
         return $this->annonceFactory->createAnnonce(
             $owner,
             $faker->colorName(),
             $faker->text(),
+            $categorie,
             $faker->numberBetween(9,999),
             'faker.jpg',
         );
@@ -53,6 +68,7 @@ class AnnonceFixtures extends Fixture implements DependentFixtureInterface
     {
         return [
             UserFixtures::class,
+            CategorieFixtures::class,
         ];
     }
   }

@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\User;
 use DateTimeImmutable;
 use App\Entity\Annonce;
+use App\Entity\Categorie;
 use App\Form\AnnonceFormType;
 use App\Service\AnnonceService;
 use Doctrine\ORM\EntityManagerInterface;
@@ -24,9 +25,9 @@ class AnnonceController extends AbstractController
         private readonly EntityManagerInterface $entityManager
     ) {}
 
-    #[Route('/list/{id}', name: 'app_annonces')]
+    #[Route('/mesannonces/{id}', name: 'annonce_mesannonces')]
     #[IsGranted('ROLE_USER')]
-    public function showAnnonces(Request $request): Response
+    public function showMyAnnonces(Request $request): Response
     {
         $annonces = $this->entityManager->getRepository(Annonce::class)->findBy(
             ['owner' => $request->get('id')],
@@ -41,6 +42,27 @@ class AnnonceController extends AbstractController
 
             return $this->redirectToRoute('app_index');
         }
+
+        return $this->render('annonce/index.html.twig', [
+            'annonces' => $annonces,
+        ]);
+    }
+
+    #[Route('/list/{categorie}', name: 'annonce_find')]
+    public function findAnnoncesByCategories(Request $request): Response
+    {
+        $categorie = $this->entityManager
+            ->getRepository(Categorie::class)
+            ->findOneBy(['id' => $request->get('categorie')])
+        ;
+
+        $annonces = $this->entityManager
+            ->getRepository(Annonce::class)
+            ->findBy(
+                ['categorie' => $categorie],
+                ['postDate' => 'DESC']
+            )
+        ;
 
         return $this->render('annonce/index.html.twig', [
             'annonces' => $annonces,

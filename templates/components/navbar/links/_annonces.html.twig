@@ -4,9 +4,12 @@
         </a>
         <ul class="dropdown-menu" aria-labelledby="navbarDropdownAnnonces">
             <li><a class="dropdown-item" href="{{ path('app_index') }}">Toutes les annonces</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="{{ path('annonce_find', {'categorie': '1'}) }}">Voitures</a></li>
+            <li><a class="dropdown-item" href="{{ path('annonce_find', {'categorie': '2'}) }}">Ordinateurs</a></li>
             {% if is_granted('ROLE_USER') %}
                 <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item" href="{{ path('app_annonces', {'id': app.user.id}) }}">Mes annonces</a></li>
+                <li><a class="dropdown-item" href="{{ path('annonce_mesannonces', {'id': app.user.id}) }}">Mes annonces</a></li>
             {% endif %}
         </ul>
     </li>

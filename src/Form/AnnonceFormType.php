@@ -3,9 +3,11 @@
 namespace App\Form;
 
 use App\Entity\Annonce;
+use App\Entity\Categorie;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints\File;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Validator\Constraints\Positive;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
@@ -17,6 +19,12 @@ class AnnonceFormType extends AbstractType
     {
         $builder
             ->add('title')
+            ->add('categorie', EntityType::class, [
+                'placeholder' => 'Choisissez une catégorie...',
+                'class' => Categorie::class,
+                'choice_label' => 'name',
+                'data' => $options['data']->getCategorie(),
+            ])
             ->add('description')
             ->add('price', IntegerType::class, [
                 'constraints' => [
