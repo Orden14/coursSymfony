@@ -53,7 +53,7 @@ class AnnonceController extends AbstractController
     {
         $categorie = $this->entityManager
             ->getRepository(Categorie::class)
-            ->findOneBy(['id' => $request->get('categorie')])
+            ->find($request->get('categorie'))
         ;
 
         $annonces = $this->entityManager
