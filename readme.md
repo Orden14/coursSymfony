@@ -1,7 +1,7 @@
 # Projet symfony
 
 ## Auteur
-Thomas lesrel
+Thomas L.
 B3 développement web & applications
 
 ## Lancer le projet
