@@ -23,10 +23,10 @@
                         Acheter
                     </button>
                     {% if is_granted('ROLE_ADMIN') or app.user == annonce.owner %}
-                            <a type="button" class="btn btn-warning flex-shrink-0 me-3" href="{{ path('annonce_edit', {'id': annonce.id}) }}"><i class="fas fa-pen"></i></a>
+                            <a type="button" class="btn btn-warning flex-shrink-0 me-3" href="{{ path('annonce_edit', {'id': annonce.id}) }}"><i class="fas fa-pen"></i> Modifier</a>
                             <form id="delete{{ annonce.id }}" method="post" action="{{ path('annonce_delete', {'id': annonce.id}) }}" data-controller="confirm">
                                 <a type="button" class="btn btn-danger flex-shrink-0" id="{{ annonce.id }}" data-action="confirm#confirmDeletion" title="Attention, la suppression est définitive" data-bs-toggle="tooltip">
-                                    <i class="fas fa-trash"></i>
+                                    <i class="fas fa-trash"></i> Supprimer
                                 </a>
                             </form>
                     {% endif %}
